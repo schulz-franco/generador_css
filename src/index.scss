@@ -1,0 +1,36 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+div.container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 3fr 1fr;
+    padding: 2rem;
+    gap: 1rem;
+
+    div.modulo {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: auto;
+        gap: 1rem;
+        
+        div.opciones, div.vista {
+            border: 1px solid rgb(192, 192, 192);
+        }
+    }
+
+    div.codigo {
+        border: 1px solid rgb(192, 192, 192);
+    }
+}

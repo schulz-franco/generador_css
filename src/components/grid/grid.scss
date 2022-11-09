@@ -1,0 +1,71 @@
+div.vista {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    position: relative;
+    overflow: hidden;
+    
+    div.vista-container {
+        display: grid;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        padding: 10px;
+    }
+
+    div.caja {
+        background-color: rgba(0, 0, 0, 0.171);
+        border: 1px solid rgba(0, 0, 0, 0.308);
+    }
+}
+
+div.opciones {
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-rows: min-content;
+    padding: 10px;
+
+    label {
+        display: grid;
+        grid-template-columns: auto 50px;
+        grid-template-rows: min-content min-content;
+        column-gap: .5rem;
+        font-size: 1.2rem;
+        color: #444;
+        font-weight: bold;
+
+        input[type=range] {
+            cursor: pointer;
+            grid-column: 1/2;
+            grid-row: 2/3;
+            outline: none;
+        }
+
+        input[type=number] {
+            grid-column: 2/3;
+            grid-row: 2/3;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        select {
+            outline: none;
+            grid-column: 3/4;
+            grid-row: 2/3;
+            font-size: 1rem;
+        }
+
+        span {
+            grid-column: 2/3;
+            grid-row: 2/3;
+            font-size: 1rem;
+            font-weight: normal;
+        }
+    }
+
+    label.multiple {
+        grid-template-columns: auto 50px 50px;
+    }
+}
