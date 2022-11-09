@@ -4,9 +4,6 @@ function App() {
 	return (
 		<div className="container">
 			<Grid />
-			<div className="codigo">
-				
-			</div>
 		</div>
 	);
 }

@@ -1,48 +1,36 @@
-import { useState } from "react"
 import "./grid.scss"
+import CustomHook from "./hook"
 
 const medidas = require("../../data/medidas.json")
 
-const generarEstilosGrid = (iterable)=> {
-	let valor = ""
-	iterable.forEach(()=> {
-		valor += " 1fr"
-	})
-	return valor
-}
-
 const Grid = () => {
 
-	const [columnas, setColumnas] = useState(Array(4).fill(null))
-	const [filas, setFilas] = useState(Array(4).fill(null))
-	const [gap, setGap] = useState(0)
-	const [gapUnidad, setGapUnidad] = useState("px")
-
-	const onChangeHandlerColumnas = (ev) => {
-		setColumnas(Array(parseInt(ev.target.value)).fill(null))
-		document.querySelector("#root > div > div.modulo > div.opciones > label:nth-child(1) > input[type=number]").value = parseInt(ev.target.value)	
-	}
-
-	const onChangeHandlerFilas = (ev) => {
-		setFilas(Array(parseInt(ev.target.value)).fill(null))
-		document.querySelector("#root > div > div.modulo > div.opciones > label:nth-child(2) > input[type=number]").value = parseInt(ev.target.value)	
-	}
-
-	const onChangeHandlerGap = (ev) => {
-		setGap(parseFloat(ev.target.value))
-		document.querySelector("#root > div > div.modulo > div.opciones > label:nth-child(3) > input[type=number]").value = parseFloat(ev.target.value)	
-	}
-
-	let estilos = {
-		gridTemplateColumns: generarEstilosGrid(columnas),
-		gridTemplateRows: generarEstilosGrid(filas),
-		gap: gap + gapUnidad
-	} 
+	const {
+		configCaja, setConfigCaja,
+		columnas, filas,
+		gapColumna, setGapColumna,
+		gapFila, setGapFila,
+		configCajaRef,
+		onChangeHandlerColumnas,
+		onChangeHandlerFilas,
+		onChangeHandlerGap,
+		onChangeHandlerItems,
+		estilos,
+		gapExiste, itemsExiste
+	} = CustomHook()
 
 	return (
 		<div className="modulo">
 
 			<div className="opciones">
+				<label className="multiple-select">
+					Tamaño de cajas
+					<select ref={configCajaRef} style={{gridColumn: "1/3"}} onChange={(ev)=> setConfigCaja(ev.target.value)} >
+						<option value="auto">auto</option>
+						<option value="20px">pequeño</option>
+						<option value="50px">mediano</option>
+					</select>
+				</label>
 				<label>
 					Columnas
 					<input defaultValue={4} min={1} max={8} onChange={(ev)=> onChangeHandlerColumnas(ev)} type="range" />
@@ -54,13 +42,38 @@ const Grid = () => {
 					<input defaultValue={filas.length} min={1} onChange={(ev)=> onChangeHandlerFilas(ev)} type="number"/>
 				</label>
 				<label className="multiple">
-					Gap
-					<input defaultValue={0} min={0} max={30} onChange={(ev)=> onChangeHandlerGap(ev)} type="range" />
-					<input step="0.1" defaultValue={gap} onChange={(ev)=> onChangeHandlerGap(ev)} type="number"/>
-					<select onChange={ev => setGapUnidad(ev.target.value)}>
+					Gap (columnas)
+					<input defaultValue={0} min={0} max={30} onChange={(ev)=> onChangeHandlerGap(ev, "columna")} type="range" />
+					<input step="0.1" defaultValue={gapColumna[0]} onChange={(ev)=> onChangeHandlerGap(ev, "columna")} type="number"/>
+					<select onChange={ev => setGapColumna([gapColumna[0], ev.target.value])}>
 						{medidas.data.map(unidad => {
 							return <option>{unidad}</option>
 						})}
+					</select>
+				</label>
+				<label className="multiple">
+					Gap (filas)
+					<input defaultValue={0} min={0} max={30} onChange={(ev)=> onChangeHandlerGap(ev, "fila")} type="range" />
+					<input step="0.1" defaultValue={gapFila[0]} onChange={(ev)=> onChangeHandlerGap(ev, "fila")} type="number"/>
+					<select onChange={ev => setGapFila([gapFila[0], ev.target.value])}>
+						{medidas.data.map(unidad => {
+							return <option>{unidad}</option>
+						})}
+					</select>
+				</label>
+				<label className="multiple-select">
+					Items
+					<select onChange={(ev)=> onChangeHandlerItems(ev, "horizontal")}>
+						<option value="normal">horizontal</option>
+						<option value="flex-start">izquierda</option>
+						<option value="center">centrado</option>
+						<option value="flex-end">derecha</option>
+					</select>
+					<select onChange={(ev)=> onChangeHandlerItems(ev, "vertical")}>
+						<option value="normal">vertical</option>
+						<option value="flex-start">arriba</option>
+						<option value="center">centrado</option>
+						<option value="flex-end">abajo</option>
 					</select>
 				</label>
 			</div>
@@ -69,10 +82,17 @@ const Grid = () => {
 				<div style={estilos} className="vista-container">
 					{filas.map(() => {
 						return columnas.map(() => {
-							return <div className="caja"></div>
+							return <div style={{width: configCaja, height: configCaja}} className="caja"></div>
 						})
 					})}
 				</div>
+			</div>
+
+			<div className="codigo">
+				<span>grid-template-columns: {estilos.gridTemplateColumns};</span>
+				<span>grid-template-rows: {estilos.gridTemplateRows};</span>
+				{gapExiste && <span>gap: {estilos.rowGap} {estilos.columnGap};</span>}
+				{itemsExiste && <span>place-items: {estilos.alignItems} {estilos.justifyItems};</span>}
 			</div>
 
 		</div>
