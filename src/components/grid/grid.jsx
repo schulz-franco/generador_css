@@ -16,11 +16,11 @@ const Grid = () => {
 		onChangeHandlerGap,
 		onChangeHandlerItems,
 		estilos,
-		gapExiste, itemsExiste
+		gapExiste, itemsExiste, columnaExiste, filaExiste, gapIgual
 	} = CustomHook()
 
 	return (
-		<div className="modulo">
+		<div className="modulo" id="grid">
 
 			<div className="opciones">
 				<label className="multiple-select">
@@ -89,9 +89,11 @@ const Grid = () => {
 			</div>
 
 			<div className="codigo">
-				<span>grid-template-columns: {estilos.gridTemplateColumns};</span>
-				<span>grid-template-rows: {estilos.gridTemplateRows};</span>
-				{gapExiste && <span>gap: {estilos.rowGap} {estilos.columnGap};</span>}
+				<span>display: grid;</span>
+				{columnaExiste && <span>grid-template-columns: {estilos.gridTemplateColumns};</span>}
+				{filaExiste && <span>grid-template-rows: {estilos.gridTemplateRows};</span>}
+				{(gapExiste && !gapIgual) && <span>gap: {estilos.rowGap} {estilos.columnGap};</span>}
+				{(gapExiste && gapIgual) && <span>gap: {estilos.rowGap}</span>}
 				{itemsExiste && <span>place-items: {estilos.alignItems} {estilos.justifyItems};</span>}
 			</div>
 

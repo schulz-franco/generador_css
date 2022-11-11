@@ -58,6 +58,9 @@ const CustomHook = () => {
 
 	let gapExiste = (gapColumna[0] === 0 && gapFila[0] === 0) ? false : true
 	let itemsExiste = (items[0] === "normal" && items[1] === "normal") ? false : true
+	let columnaExiste = columnas.length > 0 ? true : false
+	let filaExiste = filas.length > 0 ? true : false
+	let gapIgual = ((gapColumna[0] + gapColumna[1]) === (gapFila[0] + gapFila[1])) ? true : false
 
 	return {
 		configCaja, setConfigCaja,
@@ -71,7 +74,7 @@ const CustomHook = () => {
 		onChangeHandlerGap,
 		onChangeHandlerItems,
 		estilos,
-		gapExiste, itemsExiste
+		gapExiste, itemsExiste, columnaExiste, filaExiste, gapIgual
 	}
 }
 	

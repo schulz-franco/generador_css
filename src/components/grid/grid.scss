@@ -1,4 +1,4 @@
-div.vista {
+div#grid div.vista {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
@@ -16,73 +16,7 @@ div.vista {
     }
 
     div.caja {
-        background-color: rgba(0, 0, 0, 0.171);
-        border: 1px solid rgba(0, 0, 0, 0.308);
-        color: #888;
-        font-size: 1rem;
-    }
-}
-
-div.opciones {
-    display: grid;
-    grid-template-columns: auto;
-    grid-auto-rows: min-content;
-    gap: .5rem;
-    padding: 10px;
-
-    label {
-        display: grid;
-        grid-template-columns: auto 50px;
-        grid-template-rows: min-content min-content;
-        column-gap: .5rem;
-        font-size: 1rem;
-        color: #444;
-        font-weight: bold;
-        white-space: nowrap;
-
-        input[type=range] {
-            cursor: pointer;
-            grid-column: 1/2;
-            grid-row: 2/3;
-            outline: none;
-        }
-
-        input[type=number] {
-            grid-column: 2/3;
-            grid-row: 2/3;
-            outline: none;
-            font-size: 1rem;
-        }
-
-        select {
-            outline: none;
-            grid-column: 3/4;
-            grid-row: 2/3;
-            font-size: 1rem;
-        }
-
-        span {
-            grid-column: 2/3;
-            grid-row: 2/3;
-            font-size: 1rem;
-            font-weight: normal;
-        }
-    }
-
-    label.multiple {
-        grid-template-columns: auto 50px 50px;
-    }
-
-    label.multiple-select {
-        grid-template-columns: 1fr 1fr;
-        row-gap: .3rem;
-
-        select:nth-child(1) {
-            grid-column: 1/2;
-        }
-
-        select:nth-child(2) {
-            grid-column: 2/3;
-        }
+        background-color: #288cffe0;
+        border: 1px solid #0075ff;
     }
 }
